@@ -32,7 +32,7 @@ app.post('/register', jsonParser, function (req, res, next) {
                 if(err) {
                     res.json({status : 'error', message : err})
                 }
-                res.json({status : 'Ok'})
+                res.json({status : 'ok'})
             }
         )
     })
@@ -51,7 +51,7 @@ app.post('/login', jsonParser, function (req, res, next) {
             bcrypt.compare(req.body.password, users[0].password, function(err, isLogin) {
                 if(isLogin){
                     var token = jwt.sign({ email : users[0].email }, secret, { expiresIn: '1h' });
-                    res.json({status : 'Ok', message : 'Login Success', token})
+                    res.json({status : 'ok', message : 'Login Success', token})
                 } else {
                     res.json({status : 'bad', message : 'Login Fail'})
                 }
@@ -66,13 +66,13 @@ app.post('/authen', jsonParser, function (req, res, next) {
     try {
         const token = req.headers.authorization.split(' ')[1]
         var decoded = jwt.verify(token, secret);
-        res.json({status : 'Ok', decoded})
+        res.json({status : 'ok', decoded})
     } catch(err) {
         res.json({status : 'error', message : err.message})
     }
     
 })
 
-app.listen(3000, function () {
-  console.log('CORS-enabled web server listening on port 3000')
+app.listen(3333, function () {
+  console.log('CORS-enabled web server listening on port 3333')
 })
